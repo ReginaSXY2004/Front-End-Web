@@ -1,0 +1,202 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styles */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+.user-avatar {
+    position: absolute; 
+    top: 30px;
+    right: 30px; 
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%; 
+    overflow: hidden;
+}
+.user-avatar img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+}
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease; 
+}
+nav ul li a:hover {
+    color: #f4a261;
+}
+
+/* Banner Section */
+.banner {
+    position: relative; 
+}
+
+.banner img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover; /* Ensures the image fits well inside the container */
+}
+
+/* Center the button in the banner */
+.banner-content {
+    position: absolute; 
+    top: 50%; /* Move down to the center */
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+}
+
+/* Button Styles */
+.tutorial-button {
+    padding: 15px 30px;
+    background-color: #f4a261;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.tutorial-button:hover {
+    background-color: #e76f51;
+    transform: translateY(-5px);
+}
+
+
+/* History Projects Section */
+.history-projects {
+    padding: 20px;
+    text-align: center;
+}
+
+.history-projects h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the projects section */
+}
+.project {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* Ensures overlay does not spill out */
+}
+.projects img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block; /* Ensures no extra space below the image */
+}
+
+/* Overlay styling */
+.overlay {
+    position: absolute;
+    top: 100%; /* Initially, position it outside the view */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    display: flex;
+    justify-content: center;
+    align-items: center; /* title in the center */
+    border-radius: 8px;
+    transition: top 0.5s ease; 
+}
+
+/* Project Title */
+.overlay h3 {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+}
+/* Hover effect */
+.project:hover .overlay {
+    top: 0; /* When hovering, bring the overlay into view */
+}
+
+
+
+
+/* Why Choose Us Section */
+.why-choose-us {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #E8DEC8;
+}
+
+.why-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.text-content {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.text-content h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.text-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.image-content {
+    flex: 1;
+    max-width: 500px;
+}
+
+.image-content img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+footer nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
