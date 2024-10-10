@@ -95,7 +95,8 @@ nav ul li a:hover {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     max-width: 1200px;
-    margin: 0 auto; /* Center the projects section */
+    margin: 0 auto; /* Center the projects section. */
+
 }
 .project {
     position: relative;
@@ -107,7 +108,7 @@ nav ul li a:hover {
     height: 210px;
     object-fit: cover;
     border-radius: 8px;
-    display: block; /* Ensures no extra space below the image */
+    display: block; 
 }
 
 /* Overlay styling */
