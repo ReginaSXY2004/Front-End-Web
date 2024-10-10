@@ -54,7 +54,7 @@ nav ul li a:hover {
     object-fit: cover; /* Ensures the image fits well inside the container */
 }
 
-/* Center the button in the banner */
+/* Put the button in the banner center*/
 .banner-content {
     position: absolute; 
     top: 50%; /* Move down to the center */
@@ -120,7 +120,7 @@ nav ul li a:hover {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
     display: flex;
     justify-content: center;
-    align-items: center; /* title in the center */
+    align-items: center; 
     border-radius: 8px;
     transition: top 0.5s ease; 
 }
