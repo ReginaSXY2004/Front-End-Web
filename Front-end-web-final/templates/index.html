@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Emotion Diary</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"></script>
+
+
+</head>
+<body>
+        <!-- cover -->
+        <header class="diary-cover">
+            <div class="cover-content">
+                <img src="/static/assets/images/moon.jpg" alt="Emotion Diary Cover" class="cover-image">
+                <h2 class="diary-subtitle">The</h2>
+                <h1 class="diary-title">EMOTION DIARY</h1>
+                <hr class="divider">
+                <p class="diary-description">
+                    In this black-and-white cosmos, every story is a star,
+                    every feeling a constellation,
+                    and together, they weave the fabric of your emotional journey.
+                    Write, reflect, and watch your universe unfold.
+                </p>
+            </div>
+        </header>
+    <div class="header">
+        
+    <!-- main page -->
+    <main class="main-content">
+        <div class="title">
+            <h1 id="dynamic-title">Emotion Diary</h1>
+        </div>
+        <div class="user-info">
+            <input id="datepicker" type="text" placeholder="Select a date">
+            <img src="/static/assets/images/moon.jpg" alt="User Avatar" class="avatar">
+        </div>
+    </div>
+    
+
+    <div class="content-wrapper">
+        <!-- 左侧：input section -->
+        <div class="input-section">
+            <textarea id="input-text" placeholder="Type your thoughts here..."></textarea>
+            <button id="analyze-btn">Analyze</button>
+            <audio id="click-sound" src="/static/assets/sounds/click.mp3"></audio>
+        </div>
+        
+        <!-- GPT response -->
+        <div class="GPT-section">
+            <textarea id="GPT-text" placeholder="If you need emotional support, click the button here, and our AI will help you." readonly></textarea>
+            <button id="AiResponse-btn">Response</button>
+        </div>
+    
+        <!-- 右侧：planet GIF -->
+        <div class="planet-gif">
+            <img src="/static/assets/animations/planet.gif" alt="Girl GIF">
+        </div>
+    </div>
+    
+
+        <!-- bottom:result -->
+        <div class="result-section">
+            <h2>Analysis Results</h2>
+            <div class="result-display">
+                <p>Emotion: <span id="emotion-label">-</span></p>
+                <p>Confidence: <span id="confidence-score">-</span></p>
+            </div>
+        </div>
+        <div id="result"></div>
+
+        
+        <!-- generative art -->
+        <div id="art-container" class="art-section">
+            <p>Generative Art ...</p>
+        </div>
+        
+    </main>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            flatpickr("#datepicker", {
+                enableTime: false,
+                dateFormat: "Y-m-d",
+                defaultDate: new Date(),
+            });
+
+            const analyzeBtn = document.getElementById("analyze-btn");
+            const inputText = document.getElementById("input-text");
+            const emotionLabel = document.getElementById("emotion-label");
+            const confidenceScore = document.getElementById("confidence-score");
+
+            analyzeBtn.addEventListener("click", () => {
+                const text = inputText.value.trim();
+                if (!text) {
+                    alert("Please enter some text to analyze!");
+                    return;
+                }
+
+                fetch('/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        emotionLabel.textContent = data[0].label || "-";
+                        confidenceScore.textContent = data[0].score.toFixed(2) || "-";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Error");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
