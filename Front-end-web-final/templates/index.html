@@ -16,33 +16,40 @@
 
 </head>
 <body>
-        <!-- cover -->
-        <header class="diary-cover">
-            <div class="cover-content">
-                <img src="/static/assets/images/moon.jpg" alt="Emotion Diary Cover" class="cover-image">
-                <h2 class="diary-subtitle">The</h2>
-                <h1 class="diary-title">EMOTION DIARY</h1>
-                <hr class="divider">
-                <p class="diary-description">
-                    In this black-and-white cosmos, every story is a star,
-                    every feeling a constellation,
-                    and together, they weave the fabric of your emotional journey.
-                    Write, reflect, and watch your universe unfold.
-                </p>
-            </div>
-        </header>
-    <div class="header">
-        
-    <!-- main page -->
+    <canvas id="meteor-canvas"></canvas>
+
+    <!-- Cover Section -->
+    <header class="diary-cover">
+        <div class="cover-content">
+            <img src="/static/assets/images/moon.jpg" alt="Emotion Diary Cover" class="cover-image">
+            <h2 class="diary-subtitle">The</h2>
+            <h1 class="diary-title">EMOTION DIARY</h1>
+            <hr class="divider">
+            <p class="diary-description">
+                In this black-and-white cosmos, every story is a star,
+                every feeling a constellation,
+                and together, they weave the fabric of your emotional journey.
+                Write, reflect, and watch your universe unfold.
+            </p>
+        </div>
+        <button class="music-toggle" id="music-toggle">MUSIC OFF</button>
+        <audio id="background-music" src="/static/assets/sounds/celestial-melody.mp3" loop></audio>
+    </header>
+    
+
+    <!-- Main Content Section -->
     <main class="main-content">
-        <div class="title">
-            <h1 id="dynamic-title">Emotion Diary</h1>
+        <div class="page-header">
+            <div class="title">
+                <h1 id="dynamic-title">Emotion Diary</h1>
+            </div>
+            <div class="user-info">
+                <input id="datepicker" type="text" placeholder="Select a date">
+                <img src="/static/assets/images/moon.jpg" alt="User Avatar" class="avatar">
+            </div>
         </div>
-        <div class="user-info">
-            <input id="datepicker" type="text" placeholder="Select a date">
-            <img src="/static/assets/images/moon.jpg" alt="User Avatar" class="avatar">
-        </div>
-    </div>
+
+
     
 
     <div class="content-wrapper">
@@ -55,20 +62,20 @@
         
         <!-- GPT response -->
         <div class="GPT-section">
-            <textarea id="GPT-text" placeholder="If you need emotional support, click the button here, and our AI will help you." readonly></textarea>
+            <textarea id="GPT-text" placeholder="If you need emotional support, click the button here. AI is not always accurate, but AI is willing to help you." readonly></textarea>
             <button id="AiResponse-btn">Response</button>
         </div>
     
         <!-- 右侧：planet GIF -->
         <div class="planet-gif">
-            <img src="/static/assets/animations/planet.gif" alt="Girl GIF">
+            <img src="/static/assets/animations/planet.gif" alt="Planet GIF">
         </div>
     </div>
     
 
         <!-- bottom:result -->
         <div class="result-section">
-            <h2>Analysis Results</h2>
+            <h2 class="analysis-title">Analysis Results</h2>
             <div class="result-display">
                 <p>Emotion: <span id="emotion-label">-</span></p>
                 <p>Confidence: <span id="confidence-score">-</span></p>
@@ -81,6 +88,8 @@
         <div id="art-container" class="art-section">
             <p>Generative Art ...</p>
         </div>
+
+
         
     </main>
 
@@ -126,7 +135,7 @@
                 })
                 .catch(error => {
                     console.error("Error:", error);
-                    alert("Error");
+                    alert("Something went wrong. Please try again.");
                 });
             });
         });

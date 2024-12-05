@@ -13,6 +13,16 @@ body {
     padding: 20px;
 }
 
+#meteor-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* 确保画布在其他元素之下 */
+    pointer-events: none; /* 防止画布阻止其他元素的交互 */
+}
+
 /* Diary Cover Section */
 .diary-cover {
     display: flex;
@@ -90,6 +100,32 @@ body {
     z-index: 1;
 }
 
+/* Music Toggle Button */
+.music-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    color: black;
+    background-color: white;
+}
+
+.music-toggle:active {
+    transform: scale(1.05);
+}
+
 
 /* Emotion Diary */
 #dynamic-title {
@@ -98,12 +134,12 @@ body {
     color: white;
     position: relative;
     max-width: 100%;
-    text-align: center;
+    text-align: left;
     line-height: 1.2;/
     overflow: hidden;
     white-space: nowrap;
     animation: text-fade 2s infinite alternate;
-    -webkit-animation: text-fade 2s infinite alternate;
+    -webkit-animation: text-fade 3s infinite alternate;
 }
 @keyframes text-fade {
     0% {
@@ -111,46 +147,33 @@ body {
         opacity: 1;
     }
     50% {
-        clip-path: inset(0% 30% 0% 10%);
-        opacity: 0.6;
+        clip-path: inset(0% 60% 0% 0%);
+        opacity: 0.7;
     }
     100% {
-        clip-path: inset(0% 70% 0% 50%);
+        clip-path: inset(0% 100% 0% 0%);
         opacity: 0.3;
     }
 }
 
-/* Header: month and user*/
-.header {
+/* Main Content Section */
+.main-content {
+    padding: 20px;
+}
+
+.page-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Align title and user info on opposite sides */
     align-items: center;
-    flex-wrap: wrap;
-    padding: 10px 20px;
 }
 
-
-.month-display {
-    display: flex;
-    align-items: center;
-    font-size: 1.5em;
-
+.title {
+    flex-grow: 1; /* Pushes the user info to the right */
 }
-
-.month-display button {
-    background: none;
-    border: 1px solid white;
-    color: white;
-    margin: 0 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
 
 .user-info {
     display: flex;
     align-items: center;
-    margin-right: 10px;
     gap: 10px;
 }
 
@@ -159,7 +182,6 @@ body {
     border: 1px solid white;
     color: white;
     padding: 5px;
-    margin-right: 10px;
 }
 
 .avatar {
@@ -215,6 +237,7 @@ body {
     padding: 5px 15px;
     font-size: 1em;
     transition: transform 0.2s, box-shadow 0.2s;
+
 }
 
 #analyze-btn:hover {
@@ -254,6 +277,7 @@ body {
     padding: 5px 15px;
     font-size: 1em;
     transition: transform 0.2s, box-shadow 0.2s;
+
 }
 
 #AiResponse-btn:hover {
@@ -287,11 +311,15 @@ body {
 
 /* Results Section */
 .result-section {
-    width: 60%;
+    width: 100%;
     margin: 20px 0;
     text-align: center;
-}
 
+}
+.analysis-title {
+    font-family: 'EB Garamond', serif; /* 设置你想要的字体 */
+    letter-spacing: 0.1rem; 
+}
 .result-display p {
     margin: 10px 0;
 }
@@ -305,8 +333,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 canvas {
     width: 100%;
     height: 100%;
 }
+
+
+
+

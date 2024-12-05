@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // calendar
+ 
+
+
+// calendar
     flatpickr("#datepicker", {
         enableTime: false,
         dateFormat: "Y-m-d",
@@ -8,7 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Selected date:", dateStr);
         },
     });
+    // music on/off
+    const musicToggle = document.getElementById('music-toggle');
+    const backgroundMusic = document.getElementById('background-music');
 
+    musicToggle.addEventListener('click', () => {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play();
+            musicToggle.textContent = 'MUSIC ON';
+        } else {
+            backgroundMusic.pause();
+            musicToggle.textContent = 'MUSIC OFF';
+        }
+    });
+    
     // title animation
     const title = document.getElementById("dynamic-title");
     let interval;
@@ -108,7 +124,7 @@ async function getGPTResponse(inputText) {
             messages: [
                 {
                     role: "system",
-                    content: "You are a helpful assistant.You speaks in a more colloquial manner."
+                    content: "You are a helpful assistant.You speaks in a more colloquial manner. You're funny and you're kind."
                 },
                 {
                     role: "user",
@@ -151,7 +167,7 @@ function speakText(text) {
         utterance.lang = 'en-US'; 
         utterance.pitch = 1;
         utterance.rate = 1;
-        utterance.volume = 1;
+        utterance.volume = 3;
         window.speechSynthesis.speak(utterance);
     } else {
         console.error('Speech failed.');
@@ -251,3 +267,5 @@ function drawShape(ctx, x, y, color, canvas) {
     ctx.fill();
 }
 })
+
+
