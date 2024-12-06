@@ -187,9 +187,11 @@ const emotionColors = {
     joy: ['black', 'yellow', 'shapes'],
     neutral: ['black', 'gray', 'neutral']
 };
-
+// 全局存储情绪变量
+let currentEmotion = "neutral"; // 默认情绪
 
 function generateArt(emotion) {
+    currentEmotion = emotion; // 更新全局情绪变量
     const artContainer = document.getElementById('art-container');
     if (!artContainer) {
         console.error("Art container not found in the DOM.");
@@ -203,11 +205,8 @@ function generateArt(emotion) {
     canvas.height = artContainer.clientHeight;
 
     const ctx = canvas.getContext('2d');
-
-
-    const [bgColor, fgColor, style] = emotionColors[emotion] || emotionColors['neutral'];
-    
-    generateAbstractArt(ctx, canvas, bgColor, fgColor, style);
+    // 开始动画
+    animate(canvas);
 }
 
 function generateAbstractArt(ctx, canvas, bgColor, fgColor, style) {
@@ -231,15 +230,26 @@ function generateAbstractArt(ctx, canvas, bgColor, fgColor, style) {
     }
 }
 
-// draw dots
-function drawDot(ctx, x, y, color) {
-    const radius = Math.random() * 5 + 1;
+// Draw animated dots (falling effect)
+function drawDot(ctx, x, y, color, canvas) {
+    const radius = Math.random() * 4.5 + 1;
+    let velocityY = Math.random() * 0.05;  // Falling speed
+
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, Math.PI * 2);
     ctx.fillStyle = color;
     ctx.globalAlpha = Math.random() * 0.8 + 0.2;
     ctx.fill();
+
+    // Simulate gravity for falling
+    y += velocityY;
+
+    // Reset position when it hits the bottom
+    if (y > artContainer.height) {
+        y = 0;
+    }
 }
+
 
 // draw lines
 function drawLine(ctx, x, y, color, canvas) {
@@ -266,6 +276,22 @@ function drawShape(ctx, x, y, color, canvas) {
     ctx.globalAlpha = Math.random() * 0.8 + 0.2;
     ctx.fill();
 }
+
+// 动画函数
+function animate(canvas) {
+    const ctx = canvas.getContext('2d');
+
+    function draw() {
+        const [bgColor, fgColor, style] = emotionColors[currentEmotion] || emotionColors['neutral'];
+
+        generateAbstractArt(ctx, canvas, bgColor, fgColor, style);
+
+        requestAnimationFrame(draw);
+    }
+
+    draw(); // 启动动画循环
+}
+
 })
 
 
