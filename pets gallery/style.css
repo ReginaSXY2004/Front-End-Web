@@ -1,0 +1,58 @@
+body{
+    font-family:"Playwrite GB S",serif;
+    background-color:white;
+}
+h1,h2,h3{
+    font-family:Poppins;
+}
+
+body>header{
+    background-color: chocolate;
+    padding: 1em;
+    text-align: center;
+}
+
+.error{
+    border: solid 2px red;
+
+}
+
+body>header>h1{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+body>fieldset{
+    padding: 1em;
+    border: solid 1px black;
+    margin: 1em;
+}
+
+input, button{
+    margin: 0.5em;
+    padding: 0.5em;
+}
+
+
+
+#petsGalleryMain{
+    background-color: white;
+    min-height: 10em;
+    margin:1em;
+    padding: 1em;
+    flex-wrap: wrap;
+}
+
+#petsGalleryMain>Section{
+    width:1em;
+    height:1em;
+
+}
+
+#ageInput{
+    width:3em;
+}
+
+#pictureInput{
+    width:3em;
+}
