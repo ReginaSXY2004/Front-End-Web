@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // click sound when click
     const analyzeButton = document.getElementById("analyze-btn");
     const clickSound = document.getElementById("click-sound");
+    const responseButton = document.getElementById("AiResponse-btn");
 
     analyzeButton.addEventListener("click", () => {
         if (clickSound) {
@@ -57,6 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         analyzeAndGenerateArt();
+    });
+    responseButton.addEventListener("click", () => {
+        if (clickSound) {
+            clickSound.currentTime = 0;
+            clickSound.play();
+        }
     });
 
     // clear
@@ -110,7 +117,7 @@ const inputText = document.getElementById('input-text').value;  // 获取输入�
 
 // GPT API
 const GPT_API_URL = 'https://api.openai.com/v1/chat/completions';
-const GPT_API_KEY = "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"; 
+const GPT_API_KEY = "1";
 
 async function getGPTResponse(inputText) {
     const response = await fetch(GPT_API_URL, {
@@ -158,7 +165,7 @@ aiResponseBtn.addEventListener('click', async () => {
         gptText.value = 'Loading...';
         const response = await getGPTResponse(inputText);
         gptText.value = response; // Fill GPT responses into the text box
-        speakText(response); // read the response
+        speakText(response);
     }
 });
 function speakText(text) {
@@ -185,13 +192,15 @@ const emotionColors = {
     anger: ['black', 'red', 'lines'],
     sadness: ['black', 'blue', 'dots'],
     joy: ['black', 'yellow', 'shapes'],
-    neutral: ['black', 'gray', 'neutral']
+    neutral: ['black', 'gray', 'neutral'],
+    fear: ['black', 'purple', 'waves'],
+    disapproval: ['black', 'red', 'crosses']
 };
-// 全局存储情绪变量
-let currentEmotion = "neutral"; // 默认情绪
+
+let currentEmotion = "neutral";
 
 function generateArt(emotion) {
-    currentEmotion = emotion; // 更新全局情绪变量
+    currentEmotion = emotion;
     const artContainer = document.getElementById('art-container');
     if (!artContainer) {
         console.error("Art container not found in the DOM.");
@@ -205,7 +214,6 @@ function generateArt(emotion) {
     canvas.height = artContainer.clientHeight;
 
     const ctx = canvas.getContext('2d');
-    // 开始动画
     animate(canvas);
 }
 
@@ -226,6 +234,10 @@ function generateAbstractArt(ctx, canvas, bgColor, fgColor, style) {
             drawLine(ctx, x, y, fgColor, canvas);
         } else if (style === 'shapes') {
             drawShape(ctx, x, y, fgColor, canvas);
+        } else if (style === 'waves') {
+            drawWave(ctx, x, y, fgColor, canvas);
+        } else if (style === 'crosses') {
+            drawCross(ctx, x, y, fgColor, canvas);
         }
     }
 }
@@ -233,7 +245,7 @@ function generateAbstractArt(ctx, canvas, bgColor, fgColor, style) {
 // Draw animated dots (falling effect)
 function drawDot(ctx, x, y, color, canvas) {
     const radius = Math.random() * 4.5 + 1;
-    let velocityY = Math.random() * 0.05;  // Falling speed
+    let velocityY = Math.random() * 0.05;
 
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -241,10 +253,8 @@ function drawDot(ctx, x, y, color, canvas) {
     ctx.globalAlpha = Math.random() * 0.8 + 0.2;
     ctx.fill();
 
-    // Simulate gravity for falling
     y += velocityY;
 
-    // Reset position when it hits the bottom
     if (y > artContainer.height) {
         y = 0;
     }
@@ -276,8 +286,44 @@ function drawShape(ctx, x, y, color, canvas) {
     ctx.globalAlpha = Math.random() * 0.8 + 0.2;
     ctx.fill();
 }
+// Draw wavy lines (fear)
+function drawWave(ctx, x, y, color, canvas) {
+    ctx.beginPath();
+    const amplitude = Math.random() * 20 + 10;
+    const frequency = Math.random() * 0.05 + 0.05;
 
-// 动画函数
+    for (let i = 0; i < canvas.width; i += 10) {
+        const waveY = y + Math.sin(i * frequency + performance.now() / 100) * amplitude;
+        ctx.lineTo(i, waveY);
+    }
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = Math.random() * 2 + 0.5;
+    ctx.globalAlpha = Math.random() * 0.8 + 0.2;
+    ctx.stroke();
+}
+
+// Draw crosses (disapproval)
+function drawCross(ctx, x, y, color, canvas) {
+    const size = Math.random() * 20 + 10;
+    const shake = Math.sin(performance.now() / 100) * 2;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = Math.random() * 2 + 0.5;
+    ctx.globalAlpha = Math.random() * 0.8 + 0.2;
+
+    
+    ctx.beginPath();
+    ctx.moveTo(x - size / 2 + shake, y - size / 2 + shake);
+    ctx.lineTo(x + size / 2 + shake, y + size / 2 + shake);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x + size / 2 + shake, y - size / 2 + shake);
+    ctx.lineTo(x - size / 2 + shake, y + size / 2 + shake);
+    ctx.stroke();
+}
+
 function animate(canvas) {
     const ctx = canvas.getContext('2d');
 
@@ -289,7 +335,7 @@ function animate(canvas) {
         requestAnimationFrame(draw);
     }
 
-    draw(); // 启动动画循环
+    draw();
 }
 
 })
