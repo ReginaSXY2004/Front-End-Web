@@ -40,7 +40,7 @@ nav ul li a {
     transition: color 0.3s ease, transform 0.3s ease; 
 }
 nav ul li a:hover {
-    color: #e76f51;
+    color: #f4a261;
 }
 
 /* Banner Section */
@@ -118,7 +118,7 @@ nav ul li a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
     display: flex;
     justify-content: center;
     align-items: center; 
