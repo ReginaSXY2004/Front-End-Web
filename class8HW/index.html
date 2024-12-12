@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting Elements</title>
+</head>
+<body>
+    <h1>Counting Elements Exercise</h1>
+    
+    <!-- Paragraphs with some wrapped in divs -->
+    <p>Paragraph 1</p>
+    <div id="wrapper1">
+        <p>Paragraph 2</p>
+        <p>Paragraph 3</p>
+        <p>Paragraph 4</p>
+    </div>
+    <p>Paragraph 5</p>
+    <p>Paragraph 6</p>
+    <div id="wrapper2">
+        <p>Paragraph 7</p>
+        <p>Paragraph 8</p>
+        <p>Paragraph 9</p>
+    </div>
+    <p>Paragraph 10</p>
+
+    <!-- Buttons to trigger functions -->
+    <button onclick="countParagraphs()">Count Paragraphs</button>
+    <button onclick="countWrapper1Elements()">Count Elements in Wrapper 1</button>
+    <button onclick="countWrapper2Elements()">Count Elements in Wrapper 2</button>
+
+    <!-- Divs to display output -->
+    <div id="output1"></div>
+    <div id="output2"></div>
+    <div id="output3"></div>
+
+    <script>
+        // Function to count the total number of <p> elements
+        function countParagraphs() {
+            const paragraphCount = document.querySelectorAll("p").length;
+            document.getElementById("output1").textContent = `There are ${paragraphCount} paragraph tags on this page.`;
+        }
+
+        // Function to count elements inside the first ID wrapper
+        function countWrapper1Elements() {
+            const wrapper1Count = document.getElementById("wrapper1").children.length;
+            document.getElementById("output2").textContent = `There are ${wrapper1Count} elements inside the wrapper1 div.`;
+        }
+
+        // Function to count elements inside the second ID wrapper
+        function countWrapper2Elements() {
+            const wrapper2Count = document.getElementById("wrapper2").children.length;
+            document.getElementById("output3").textContent = `There are ${wrapper2Count} elements inside the wrapper2 div.`;
+        }
+    </script>
+</body>
+</html>
